@@ -1,4 +1,4 @@
-VALID_CHOICES = ["rock", "paper", "scissors"]
+VALID_CHOICES = %w(rock paper scissors)
 
 def test_method
   prompt("test message")
@@ -8,17 +8,19 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+def win?(first, second)
+  (first == "rock" && second == "scissors") ||
+    (first == "paper" && second == "rock") ||
+    (first == "scissors" && second == "paper")
+end
+
 def display_results(player, computer)
-  if (player == "rock" && computer == "scissors") ||
-     (player == "paper" && computer == "rock") ||
-     (player == "scissors" && computer == "paper")
-    return "You won!"
-  elsif (player == "rock" && computer == "paper") ||
-        (player == "paper" && computer == "scissors") ||
-        (player == "scissors" && computer == "rock")
-    return "You lost!"
+  if win?(player, computer)
+    "You won!"
+  elsif win?(computer, player)
+    "You lost!"
   else
-    return "It's a tie!"
+    "It's a tie!"
   end
 end
 
@@ -39,7 +41,7 @@ loop do
 
   puts "You chose: #{choice}; The computer chose: #{computer_choice}."
 
-  prompt (display_results(choice, computer_choice))
+  prompt display_results(choice, computer_choice)
 
   prompt("Do you want to play again?")
   answer = gets.chomp
