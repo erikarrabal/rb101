@@ -25,15 +25,15 @@ end
 def convert_to_s(input)
   case input
   when "r"
-    input = "rock"
+    "rock"
   when "p"
-    input = "paper"
+    "paper"
   when "s"
-    input = "scissors"
+    "scissors"
   when "k"
-    input = "spock"
+    "spock"
   when "l"
-    input = "lizard"
+    "lizard"
   end
 end
 
@@ -47,7 +47,7 @@ loop do
   loop do
     prompt("Choose: r = rock, p = paper, s = scissors, k = spock, l = lizard")
     short_choice = gets.chomp
-    
+
     choice = convert_to_s(short_choice)
 
     if VALID_CHOICES.include?(choice)
@@ -62,16 +62,16 @@ loop do
   puts "You chose: #{choice}; The computer chose: #{computer_choice}."
 
   prompt display_results(choice, computer_choice)
-  
+
   if win?(choice, computer_choice)
     wins += 1
   elsif win?(computer_choice, choice)
     losses += 1
   end
-  
+
   prompt("Your wins: #{wins}; Computer wins: #{losses}")
-  
-  if wins >= 5 
+
+  if wins >= 5
     prompt("You are the grand winner.")
     break
   elsif losses >= 5
