@@ -4,12 +4,16 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+WINNING_MOVES = {
+  "rock": ["scissors", "lizard"],
+  "paper": ["rock", "spock"],
+  "scissors": ["paper", "lizard"],
+  "lizard": ["spock", "paper"],
+  "spock": ["scissors", "rock"]
+}
+
 def win?(first, second)
-  (first == "rock" && (second == "scissors" || second == "lizard")) ||
-    (first == "paper" && (second == "rock" || second == "spock")) ||
-    (first == "scissors" && (second == "paper" || second == "lizard")) ||
-    (first == "lizard" && (second == "spock" || second == "paper")) ||
-    (first == "spock" && (second == "scissors" || second == "rock"))
+  WINNING_MOVES[first.to_sym].include?(second)
 end
 
 def display_results(player, computer)
