@@ -37,6 +37,16 @@ def convert_to_s(input)
   end
 end
 
+def clear
+  system('clear') || system('cls')
+end
+
+prompt("Hi stranger! What's your first name?")
+first_name = gets.chomp
+prompt("Nice to meet you #{first_name}! Let's cover the rules...")
+prompt("You have five choices: rock, paper, scissors, spock, or lizard.")
+prompt("The first player to win 5 times is the grand winner! Ready to play?")
+
 wins = 0
 losses = 0
 
@@ -45,7 +55,7 @@ loop do
   choice = ""
 
   loop do
-    prompt("Choose: r = rock, p = paper, s = scissors, k = spock, l = lizard")
+    prompt("Pick one: r = rock, p = paper, s = scissors, k = spock, l = lizard")
     short_choice = gets.chomp
 
     choice = convert_to_s(short_choice)
@@ -79,9 +89,11 @@ loop do
     break
   end
 
-  prompt("Do you want to play again?")
+  prompt("Do you want to play again? Type \"yes\" to continue!")
   answer = gets.chomp
-  break unless answer.downcase.start_with?("y")
+  break unless answer.downcase.include?("yes")
+
+  clear
 end
 
 prompt("Thanks for playing. Good bye!")
