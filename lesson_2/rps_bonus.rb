@@ -4,6 +4,34 @@ def prompt(message)
   puts "=> #{message}"
 end
 
+def convert_to_s(input)
+  case input
+  when "r"
+    "rock"
+  when "p"
+    "paper"
+  when "s"
+    "scissors"
+  when "k"
+    "spock"
+  when "l"
+    "lizard"
+  end
+end
+
+def player_move
+  prompt("Pick one: r = rock, p = paper, s = scissors, k = spock, l = lizard")
+  short_choice = gets.chomp
+
+  choice = convert_to_s(short_choice)
+
+  if VALID_CHOICES.include?(choice)
+    choice
+  else
+    prompt("That's not a valid choice.")
+  end
+end
+
 WINNING_MOVES = {
   "rock": ["scissors", "lizard"],
   "paper": ["rock", "spock"],
@@ -26,21 +54,6 @@ def display_results(player, computer)
   end
 end
 
-def convert_to_s(input)
-  case input
-  when "r"
-    "rock"
-  when "p"
-    "paper"
-  when "s"
-    "scissors"
-  when "k"
-    "spock"
-  when "l"
-    "lizard"
-  end
-end
-
 def clear
   system('clear') || system('cls')
 end
@@ -55,31 +68,16 @@ wins = 0
 losses = 0
 
 loop do
-  short_choice = ""
-  choice = ""
-
-  loop do
-    prompt("Pick one: r = rock, p = paper, s = scissors, k = spock, l = lizard")
-    short_choice = gets.chomp
-
-    choice = convert_to_s(short_choice)
-
-    if VALID_CHOICES.include?(choice)
-      break
-    else
-      prompt("That's not a valid choice.")
-    end
-  end
-
+  player_choice = player_move
   computer_choice = VALID_CHOICES.sample
 
-  puts "You chose: #{choice}; The computer chose: #{computer_choice}."
+  puts "You chose: #{player_choice}; The computer chose: #{computer_choice}."
 
-  prompt display_results(choice, computer_choice)
+  prompt display_results(player_choice, computer_choice)
 
-  if win?(choice, computer_choice)
+  if win?(player_choice, computer_choice)
     wins += 1
-  elsif win?(computer_choice, choice)
+  elsif win?(computer_choice, player_choice)
     losses += 1
   end
 
